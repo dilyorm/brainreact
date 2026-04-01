@@ -120,3 +120,34 @@ Notes:
 - The Docker image uses official multi-arch base images, so it works on common `amd64` and `arm64` Linux hosts.
 - The frontend talks to the backend through `/api`, so the browser does not need a hardcoded server IP.
 - Persistent uploads, cache, and SQLite data are stored under `/data`.
+
+### Docker Compose
+
+You can run the full stack with one command:
+
+```bash
+docker compose up -d
+```
+
+This works without any extra setup. If API keys are missing, the app still starts and uses its built-in fallback/mock analysis path.
+
+If you want live Gemini or NVIDIA interpretation, place these in a root `.env` file before starting Compose:
+
+```bash
+GEMINI_API_KEY=...
+NVIDIA_API_KEY=...
+DEFAULT_INTERPRETER_MODEL=gemini-3-flash-preview
+```
+
+The Compose setup publishes:
+
+- Frontend on `3000`
+- API on `8000`
+
+Useful commands:
+
+```bash
+docker compose up -d
+docker compose logs -f
+docker compose down
+```

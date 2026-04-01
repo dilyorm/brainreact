@@ -1,0 +1,19 @@
+services:
+  brainreact:
+    image: brainreact:latest
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+    environment:
+      DATA_DIR: /data
+      DEFAULT_INTERPRETER_MODEL: ${DEFAULT_INTERPRETER_MODEL:-gemini-3-flash-preview}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
+    volumes:
+      - brainreact-data:/data
+    restart: unless-stopped
+
+volumes:
+  brainreact-data:
