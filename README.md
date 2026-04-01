@@ -70,6 +70,8 @@ npm install --prefix apps/web
 
 Copy `apps/web/.env.local.example` to `apps/web/.env.local` if your API is not running on `http://127.0.0.1:8000`.
 
+On Ubuntu ARM64, the frontend depends on native Tailwind/lightningcss bindings. These are declared in `apps/web/package.json`, so install from `apps/web` or run the root install flow below to fetch them.
+
 ## Run
 
 From the repository root:
@@ -78,6 +80,8 @@ From the repository root:
 npm install
 npm run dev
 ```
+
+The root `npm install` also installs `apps/web` dependencies. The root `npm run dev` expects a Python environment at `apps/api/.venv`; on Linux/macOS it uses `.venv/bin/python`, on Windows it uses `.venv\Scripts\python.exe`. You can override that with `API_PYTHON=/path/to/python`.
 
 Or run the services separately:
 

@@ -22,5 +22,9 @@
     "tailwindcss": "^4.1.13",
     "@tailwindcss/postcss": "^4.1.13",
     "typescript": "5.9.2"
+  },
+  "optionalDependencies": {
+    "@tailwindcss/oxide-linux-arm64-gnu": "4.2.2",
+    "lightningcss-linux-arm64-gnu": "1.32.0"
   }
 }

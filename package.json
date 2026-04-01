@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
+    "postinstall": "npm install --prefix apps/web",
     "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
     "dev:web": "npm run dev --prefix apps/web",
-    "dev:api": "apps\\api\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000 --app-dir apps/api",
+    "dev:api": "node scripts/run-api-dev.mjs",
     "build:web": "npm run build --prefix apps/web",
     "lint:web": "npm run lint --prefix apps/web"
   },
