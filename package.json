@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "postinstall": "npm install --prefix apps/web",
+    "postinstall": "node scripts/install-web.mjs",
     "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
     "dev:web": "npm run dev --prefix apps/web",
     "dev:api": "node scripts/run-api-dev.mjs",
