@@ -36,7 +36,7 @@ export function AnalysisDashboard({ analysis }: { analysis: AnalysisRecord }) {
 
   const tribe = result.tribe;
   const interpretation = result.interpretation;
-  const videoSource = analysis.public_video_url ?? analysis.public_video_path;
+  const videoSource = resolveApiAssetUrl(analysis.public_video_url ?? analysis.public_video_path);
   const primaryBrainVisual = tribe.brain_visuals[0] ?? null;
 
   return (
@@ -52,7 +52,7 @@ export function AnalysisDashboard({ analysis }: { analysis: AnalysisRecord }) {
           </div>
 
           <div className="mt-6 overflow-hidden rounded-[28px] border border-white/10 bg-slate-950/60">
-            <video className="aspect-video w-full bg-black" controls src={videoSource} preload="metadata" />
+            <video className="aspect-video w-full bg-black" controls src={videoSource ?? undefined} preload="metadata" />
           </div>
 
           <div className="metric-grid mt-6">
