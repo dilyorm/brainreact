@@ -93,3 +93,30 @@ npm run dev:api
 Frontend: `http://localhost:3000`
 
 Backend docs: `http://127.0.0.1:8000/docs`
+
+## Docker
+
+This repository includes a single `Dockerfile` that builds the Next.js frontend and runs it together with the FastAPI backend in one container.
+
+Build the image from the repository root:
+
+```bash
+docker build -t brainreact .
+```
+
+Run it:
+
+```bash
+docker run --rm -p 3000:3000 -p 8000:8000 \
+  -e GEMINI_API_KEY=... \
+  -e NVIDIA_API_KEY=... \
+  -e DEFAULT_INTERPRETER_MODEL=gemini-3-flash-preview \
+  -v brainreact-data:/data \
+  brainreact
+```
+
+Notes:
+
+- The Docker image uses official multi-arch base images, so it works on common `amd64` and `arm64` Linux hosts.
+- The frontend talks to the backend through `/api`, so the browser does not need a hardcoded server IP.
+- Persistent uploads, cache, and SQLite data are stored under `/data`.

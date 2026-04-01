@@ -1,9 +1,14 @@
 import { AnalysisRecord, InterpreterModelOption } from "@/lib/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
+const PUBLIC_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
+const SERVER_API_BASE_URL = process.env.API_INTERNAL_BASE_URL ?? "http://127.0.0.1:8000";
+
+function getFetchBaseUrl() {
+  return typeof window === "undefined" ? SERVER_API_BASE_URL : PUBLIC_API_BASE_URL;
+}
 
 export function getApiBaseUrl() {
-  return API_BASE_URL;
+  return PUBLIC_API_BASE_URL;
 }
 
 export function resolveApiAssetUrl(path: string | null | undefined) {
@@ -14,13 +19,13 @@ export function resolveApiAssetUrl(path: string | null | undefined) {
     return path;
   }
   if (path.startsWith("/")) {
-    return `${API_BASE_URL}${path}`;
+    return `${PUBLIC_API_BASE_URL}${path}`;
   }
-  return `${API_BASE_URL}/${path}`;
+  return `${PUBLIC_API_BASE_URL}/${path}`;
 }
 
 export async function fetchInterpreterModels(): Promise<InterpreterModelOption[]> {
-  const response = await fetch(`${API_BASE_URL}/interpreter-models`, { cache: "no-store" });
+  const response = await fetch(`${getFetchBaseUrl()}/interpreter-models`, { cache: "no-store" });
   if (!response.ok) {
     throw new Error("Failed to load interpreter models.");
   }
@@ -32,7 +37,7 @@ export async function createAnalysis(video: File, interpreterModel: string): Pro
   formData.append("video", video);
   formData.append("interpreter_model", interpreterModel);
 
-  const response = await fetch(`${API_BASE_URL}/analyses`, {
+  const response = await fetch(`${getFetchBaseUrl()}/analyses`, {
     method: "POST",
     body: formData,
   });
@@ -46,7 +51,7 @@ export async function createAnalysis(video: File, interpreterModel: string): Pro
 }
 
 export async function fetchAnalysis(id: string): Promise<AnalysisRecord> {
-  const response = await fetch(`${API_BASE_URL}/analyses/${id}`, { cache: "no-store" });
+  const response = await fetch(`${getFetchBaseUrl()}/analyses/${id}`, { cache: "no-store" });
   if (!response.ok) {
     throw new Error("Analysis not found.");
   }
