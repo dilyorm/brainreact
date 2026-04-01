@@ -4,7 +4,7 @@ dist/
 coverage/
 *.log
 .DS_Store
-
+.env
 apps/api/.venv/
 apps/api/__pycache__/
 apps/api/app/__pycache__/
